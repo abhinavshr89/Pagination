@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Document</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <div class="pagination">
+            <button class="btn1" onclick="prevbtn()"> <img src="448-arrow.png" alt=""><span class="button-text">prev</span></button>
+            <ul>
+                <li class="link active" onclick="activeLink(0)">1</li>
+                <li class="link" onclick="activeLink(1)">2</li>
+                <li class="link" onclick="activeLink(2)">3</li>
+                <li class="link hide" onclick="activeLink(3)">4</li>
+                <li class="link hide" onclick="activeLink(4)">5</li>
+                <li class="link hide" onclick="activeLink(5)">6</li>
+            </ul>
+            <button class="btn2" onclick="nextbtn()"><span class="button-text">next</span> <img src="448-arrow.png" alt=""></button>
+        </div>
+    <script src="script.js"></script>
+</body>
+</html>

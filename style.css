@@ -1,0 +1,138 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif;
+}
+html, body {
+    height: 100%;
+    width: 100%;
+    background:var(--bg);
+}
+:root{
+    --bg:lightseagreen;
+    --grey:#ccc;
+    --grn:lightseagreen;
+    --bg2:linear-gradient(#ff4568,#ff4568);
+}
+.container{
+    height: 100%;
+    width: 100%;
+    background: var(--bg);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.pagination{
+    display:flex;
+   justify-content: space-between;
+    align-items:center;
+    gap: 15px;
+    
+    background-color: #fff;
+    padding :20px 20px;
+    border-radius: 20px;
+}
+button{
+    font-size: 25px;
+    outline: none;
+    border: none;
+    background-color: #fff;
+
+}
+
+
+ul{
+    display: flex;
+    gap: 20px;
+    justify-content: space-between;
+}
+ul li{
+    list-style: none;
+    font-size: 22px;
+    padding: 15px;
+   
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    border-radius: 50%;
+ 
+}
+ul li.active{
+    color: #fff;
+    background-image:var(--bg2) ;
+    background-repeat: no-repeat;
+}
+.btn1,.btn2{
+    display: inline-flex;
+    align-items: center;
+    font-size: 22px;
+    font-weight: 500;
+    color:#383838 ;
+    background: transparent;
+    outline: none;
+    border: none;
+    cursor: pointer;
+}
+.btn1 img{
+    width: 25px;
+    margin-right: 15px;
+
+}
+.btn2 img{
+    width: 25px;
+    margin-left: 15px;
+    transform: rotate(180deg);
+
+}
+@media (max-width: 768px) {
+   
+    button{
+        font-size: 15px;
+    }
+    ul li{
+        list-style: none;
+        font-size: 14px;
+        padding: 15px;
+       
+        width: 20px;
+        height: 20px;
+        text-align: center;
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        border-radius: 50%;
+       
+    }
+    ul{
+        display: flex;
+        gap: 10px;
+        justify-content: space-between;
+    }
+
+}
+@media (max-width:500px) {
+
+ul{
+    display: flex;
+    gap: 8px;
+    justify-content: space-between;
+}
+.pagination{
+    display:flex;
+   justify-content: space-between;
+    align-items:center;
+    gap: 10px;
+    
+    background-color: #fff;
+    padding :20px 20px;
+    border-radius: 20px;
+}
+.button-text{
+    display: none;
+}
+}
