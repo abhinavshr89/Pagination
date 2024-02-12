@@ -21,7 +21,9 @@ html, body {
     background: var(--bg);
     display:flex;
     justify-content:center;
+    gap: 30px;
     align-items:center;
+    flex-direction: column;
 }
 
 .pagination{
@@ -135,4 +137,9 @@ ul{
 .button-text{
     display: none;
 }
+}
+.pagecontent{
+    text-align: center;
+    width: auto;
+    height: auto;
 }

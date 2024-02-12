@@ -1,32 +1,48 @@
 // script.js
 
 const links = document.getElementsByClassName("link");
-let currentValue = 1;
+const pageContentContainer = document.querySelector(".pagecontent");
+let currentPage = 1;
 
 function activeLink(index) {
     for (let l of links) {
         l.classList.remove('active');
     }
     links[index].classList.add('active');
-    currentValue = index + 1;
+    currentPage = index + 1;
+    loadPageContent(currentPage);
 }
 
 function prevbtn() {
-    if (currentValue > 1) {
-        for (let l of links) {
-            l.classList.remove('active');
-        }
-        currentValue--;
-        links[currentValue - 1].classList.add("active");
+    if (currentPage > 1) {
+        activeLink(currentPage - 2);
     }
 }
 
 function nextbtn() {
-    if (currentValue < links.length) {
-        for (let l of links) {
-            l.classList.remove('active');
-        }
-        currentValue++;
-        links[currentValue - 1].classList.add("active");
+    if (currentPage < links.length) {
+        activeLink(currentPage);
     }
 }
+
+function loadPageContent(pageNumber) {
+    const pageURL = `page${pageNumber}.html`;
+    
+    fetch(pageURL)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`Failed to load page ${pageNumber}`);
+            }
+            return response.text();
+        })
+        .then(htmlContent => {
+            pageContentContainer.innerHTML = htmlContent;
+        })
+        .catch(error => {
+            console.error(error);
+        });
+}
+
+// Initial load
+loadPageContent(currentPage);
+
