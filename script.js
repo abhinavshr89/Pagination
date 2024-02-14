@@ -32,19 +32,20 @@ function dataTable() {
         return `
             <div class="productBox">
                 <img src=${product.images[0]} alt="${product.name}" />
-                <h4>${product.name}</h4>
+               
                 <p>${product.category}</p>
             </div>
         `;
     }).join("");
 
-    // Display page buttons
+    // Display page buttons with dynamic styling for the active page
     document.getElementById("pgBtns").innerHTML = pageButtons.map(page => {
         return `
-            <button class="pageBtn" onclick="goToPage(${page})">${page}</button>
+            <button class="pageBtn ${currentPage === page ? 'activePage' : ''}" onclick="goToPage(${page})">${page}</button>
         `;
     }).join("");
 }
+
 
 // Function to navigate to a specific page
 function goToPage(page) {

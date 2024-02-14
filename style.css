@@ -1,15 +1,27 @@
+:root {
+    --background-color: #eee;
+    --primary-color: #084298;
+    --box-border-color: #eee;
+    --box-background-color: #fff;
+    --button-background-color: rgb(186, 206, 205);
+    --button-text-color: #fff;
+    --active-button-color: orange;
+}
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-family: 'Montserrat';
 }
+
 html, body {
     height: 100%;
     width: 100%;
 }
+
 body {
-    background-color: #eee;
+    background-color: var(--background-color);
     font-family: 'Arial', sans-serif;
 }
 
@@ -21,7 +33,7 @@ body {
 h1 {
     text-align: center;
     margin-bottom: 2rem;
-    color: #084298;
+    color: var(--primary-color);
 }
 
 #product-container {
@@ -32,14 +44,14 @@ h1 {
 }
 
 .productBox {
-    border: 1px solid #eee;
+    border: 1px solid var(--box-border-color);
     padding: 1.5rem;
     text-align: center;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    background-color: #fff;
+    background-color: var(--box-background-color);
     border-radius: 4px;
 }
 
@@ -53,7 +65,7 @@ h1 {
 .productBox h4 {
     font-size: 18px;
     text-transform: capitalize;
-    color: #084298;
+    color: var(--primary-color);
 }
 
 .productBox p {
@@ -62,7 +74,7 @@ h1 {
 }
 
 .pgBtns button {
-    background-color: lightseagreen;
+    background-color: var(--button-background-color);
     border: none;
     border-radius: 4px;
     font-size: 16px;
@@ -71,15 +83,16 @@ h1 {
     height: 37px;
     line-height: 37px;
     text-align: center;
-    color: #fff;
+    color: var(--button-text-color);
     cursor: pointer;
+    border-radius: 50%;
 }
 
 .pgBtns {
     text-align: right;
-    display:flex;
-    justify-content:center;
-    align-items:center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 input {
@@ -117,11 +130,17 @@ select:focus {
 }
 
 .button-container {
-
     display: flex;
     justify-content: center;
     width: 100px;
     margin: auto;
+}
 
-
+.pgBtns button.activePage {
+    background-color: var(--active-button-color);
+}
+@media (max-width: 768px) {
+    #product-container {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
 }
