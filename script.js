@@ -3,9 +3,9 @@ var productData = [];
 let itemsPerPage = 6;
 let currentPage = 1;
 
-// Fetches product data from the API
+// Fetches product data from the API and returns a promise
 function productsTable() {
-    fetch(apiUrl)
+    return fetch(apiUrl)
         .then(response => response.json())
         .then(data => {
             productData = data.products;
@@ -18,34 +18,33 @@ function productsTable() {
 
 // Renders the product data and pagination buttons
 function dataTable() {
-    productsTable();
+    productsTable().then(() => {
+        const pages = Math.ceil(productData.length / itemsPerPage);
+        const pageButtons = Array.from({ length: pages }, (_, index) => index + 1);
 
-    const pages = Math.ceil(productData.length / itemsPerPage);
-    const pageButtons = Array.from({ length: pages }, (_, index) => index + 1);
+        const indexOfLastPage = currentPage * itemsPerPage;
+        const indexOfFirstPage = indexOfLastPage - itemsPerPage;
+        const currentItems = productData.slice(indexOfFirstPage, indexOfLastPage);
 
-    const indexOfLastPage = currentPage * itemsPerPage;
-    const indexOfFirstPage = indexOfLastPage - itemsPerPage;
-    const currentItems = productData.slice(indexOfFirstPage, indexOfLastPage);
+        // Display product items
+        document.getElementById("product-container").innerHTML = currentItems.map(product => {
+            return `
+                <div class="productBox">
+                    <img src=${product.images[0]} alt="${product.name}" />
+                   
+                    <p>${product.category}</p>
+                </div>
+            `;
+        }).join("");
 
-    // Display product items
-    document.getElementById("product-container").innerHTML = currentItems.map(product => {
-        return `
-            <div class="productBox">
-                <img src=${product.images[0]} alt="${product.name}" />
-               
-                <p>${product.category}</p>
-            </div>
-        `;
-    }).join("");
-
-    // Display page buttons with dynamic styling for the active page
-    document.getElementById("pgBtns").innerHTML = pageButtons.map(page => {
-        return `
-            <button class="pageBtn ${currentPage === page ? 'activePage' : ''}" onclick="goToPage(${page})">${page}</button>
-        `;
-    }).join("");
+        // Display page buttons with dynamic styling for the active page
+        document.getElementById("pgBtns").innerHTML = pageButtons.map(page => {
+            return `
+                <button class="pageBtn ${currentPage === page ? 'activePage' : ''}" onclick="goToPage(${page})">${page}</button>
+            `;
+        }).join("");
+    });
 }
-
 
 // Function to navigate to a specific page
 function goToPage(page) {
