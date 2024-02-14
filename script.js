@@ -4,46 +4,44 @@ let itemsPerPage = 6;
 let currentPage = 1;
 
 // Fetches product data from the API and returns a promise
-function productsTable() {
-    return fetch(apiUrl)
-        .then(response => response.json())
-        .then(data => {
-            productData = data.products;
-        })
-        .catch(error => {
-            console.error('Error fetching data:', error);
-            document.getElementById("msg").innerText = "Error fetching data. Please try again later.";
-        });
+async function productsTable() {
+    try {
+        const response = await fetch(apiUrl);
+        const data = await response.json();
+        productData = data.products;
+    } catch (error) {
+        console.error('Error fetching data:', error);
+        document.getElementById("msg").innerText = "Error fetching data. Please try again later.";
+    }
 }
 
 // Renders the product data and pagination buttons
-function dataTable() {
-    productsTable().then(() => {
-        const pages = Math.ceil(productData.length / itemsPerPage);
-        const pageButtons = Array.from({ length: pages }, (_, index) => index + 1);
+async function dataTable() {
+    await productsTable();
 
-        const indexOfLastPage = currentPage * itemsPerPage;
-        const indexOfFirstPage = indexOfLastPage - itemsPerPage;
-        const currentItems = productData.slice(indexOfFirstPage, indexOfLastPage);
+    const pages = Math.ceil(productData.length / itemsPerPage);
+    const pageButtons = Array.from({ length: pages }, (_, index) => index + 1);
 
-        // Display product items
-        document.getElementById("product-container").innerHTML = currentItems.map(product => {
-            return `
-                <div class="productBox">
-                    <img src=${product.images[0]} alt="${product.name}" />
-                   
-                    <p>${product.category}</p>
-                </div>
-            `;
-        }).join("");
+    const indexOfLastPage = currentPage * itemsPerPage;
+    const indexOfFirstPage = indexOfLastPage - itemsPerPage;
+    const currentItems = productData.slice(indexOfFirstPage, indexOfLastPage);
 
-        // Display page buttons with dynamic styling for the active page
-        document.getElementById("pgBtns").innerHTML = pageButtons.map(page => {
-            return `
-                <button class="pageBtn ${currentPage === page ? 'activePage' : ''}" onclick="goToPage(${page})">${page}</button>
-            `;
-        }).join("");
-    });
+    // Display product items
+    document.getElementById("product-container").innerHTML = currentItems.map(product => {
+        return `
+            <div class="productBox">
+                <img src=${product.images[0]} alt="${product.name}" />
+                <p>${product.category}</p>
+            </div>
+        `;
+    }).join("");
+
+    // Display page buttons with dynamic styling for the active page
+    document.getElementById("pgBtns").innerHTML = pageButtons.map(page => {
+        return `
+            <button class="pageBtn ${currentPage === page ? 'activePage' : ''}" onclick="goToPage(${page})">${page}</button>
+        `;
+    }).join("");
 }
 
 // Function to navigate to a specific page
