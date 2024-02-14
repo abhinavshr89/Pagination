@@ -1,31 +1,76 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
-    <title>Document</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap" rel="stylesheet">
+    <title>API Data</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-    <div class="container">
-        <div class="pagecontent">
-           
+    <div class="container-fluid ">
+        <div class="row mb-4 d-flex justify-content-between align-items-center">
+            <div class="col-12">
+                <h1>API DATA</h1>
+            </div>
+            <div class="col-12 col-md-6 col-lg-6">
+                <div class="sform">
+                    <form action="#">
+                        <input type="search" id="search" placeholder="Search Here">
+                    </form>
+                </div>
+            </div>
         </div>
-        <div class="pagination">
-            <button class="btn1" onclick="prevbtn()"> <img src="448-arrow.png" alt=""><span class="button-text">prev</span></button>
-            <ul>
-                <li class="link active" onclick="activeLink(0)">1</li>
-                <li class="link" onclick="activeLink(1)">2</li>
-                <li class="link" onclick="activeLink(2)">3</li>
-                <li class="link hide" onclick="activeLink(3)">4</li>
-                <li class="link hide" onclick="activeLink(4)">5</li>
-                <li class="link hide" onclick="activeLink(5)">6</li>
-            </ul>
-            <button class="btn2" onclick="nextbtn()"><span class="button-text">next</span> <img src="448-arrow.png" alt=""></button>
+        <div class="row">
+            <div class="col-12">
+                <div id="product-container">
+                    <!-- Placeholder content, replace with actual data -->
+                    <div class="productBox">
+                        <img src="https://via.placeholder.com/150" alt="Product Image">
+                        <h4>Product Name</h4>
+                        <p>Category</p>
+                    </div>
+                    <div class="productBox">
+                        <img src="https://via.placeholder.com/150" alt="Product Image">
+                        <h4>Product Name</h4>
+                        <p>Category</p>
+                    </div>
+                    <div class="productBox">
+                        <img src="https://via.placeholder.com/150" alt="Product Image">
+                        <h4>Product Name</h4>
+                        <p>Category</p>
+                    </div>
+                    <!-- Repeat for more products -->
+                </div>
+                <div id="msg" class="text-center"></div>
+            </div>
         </div>
+    </div>
+
+    <!-- Buttons placed at the bottom of the page -->
+    <div class="col-12 col-md-6 col-lg-6 button-container pb-5">
+        <div class="actions">
+            <div class="pgBtns">
+                <button id="prevBtn">&lt;</button>
+
+                <!-- Add this HTML code where you want to display the page buttons -->
+                <div id="pgBtns" class="pgBtns"></div>
+
+                <button id="nextBtn">&gt;</button>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
     <script src="script.js"></script>
 </body>
+
+
 </html>

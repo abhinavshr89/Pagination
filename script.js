@@ -1,48 +1,76 @@
-// script.js
-
-const links = document.getElementsByClassName("link");
-const pageContentContainer = document.querySelector(".pagecontent");
+var apiUrl = "https://dummyjson.com/products";
+var productData = [];
+let itemsPerPage = 6;
 let currentPage = 1;
 
-function activeLink(index) {
-    for (let l of links) {
-        l.classList.remove('active');
-    }
-    links[index].classList.add('active');
-    currentPage = index + 1;
-    loadPageContent(currentPage);
-}
-
-function prevbtn() {
-    if (currentPage > 1) {
-        activeLink(currentPage - 2);
-    }
-}
-
-function nextbtn() {
-    if (currentPage < links.length) {
-        activeLink(currentPage);
-    }
-}
-
-function loadPageContent(pageNumber) {
-    const pageURL = `page${pageNumber}.html`;
-    
-    fetch(pageURL)
-        .then(response => {
-            if (!response.ok) {
-                throw new Error(`Failed to load page ${pageNumber}`);
-            }
-            return response.text();
-        })
-        .then(htmlContent => {
-            pageContentContainer.innerHTML = htmlContent;
+// Fetches product data from the API
+function productsTable() {
+    fetch(apiUrl)
+        .then(response => response.json())
+        .then(data => {
+            productData = data.products;
         })
         .catch(error => {
-            console.error(error);
+            console.error('Error fetching data:', error);
+            document.getElementById("msg").innerText = "Error fetching data. Please try again later.";
         });
 }
 
-// Initial load
-loadPageContent(currentPage);
+// Renders the product data and pagination buttons
+function dataTable() {
+    productsTable();
 
+    const pages = Math.ceil(productData.length / itemsPerPage);
+    const pageButtons = Array.from({ length: pages }, (_, index) => index + 1);
+
+    const indexOfLastPage = currentPage * itemsPerPage;
+    const indexOfFirstPage = indexOfLastPage - itemsPerPage;
+    const currentItems = productData.slice(indexOfFirstPage, indexOfLastPage);
+
+    // Display product items
+    document.getElementById("product-container").innerHTML = currentItems.map(product => {
+        return `
+            <div class="productBox">
+                <img src=${product.images[0]} alt="${product.name}" />
+                <h4>${product.name}</h4>
+                <p>${product.category}</p>
+            </div>
+        `;
+    }).join("");
+
+    // Display page buttons
+    document.getElementById("pgBtns").innerHTML = pageButtons.map(page => {
+        return `
+            <button class="pageBtn" onclick="goToPage(${page})">${page}</button>
+        `;
+    }).join("");
+}
+
+// Function to navigate to a specific page
+function goToPage(page) {
+    currentPage = page;
+    dataTable();
+}
+
+// Function to go to the previous page
+const prevBtn = () => {
+    if ((currentPage - 1) > 0) {
+        currentPage--;
+        dataTable();
+    }
+}
+
+// Function to go to the next page
+const nextBtn = () => {
+    if ((currentPage * itemsPerPage) < productData.length) {
+        currentPage++;
+        dataTable();
+    }
+}
+
+// Event listeners for previous and next buttons
+document.getElementById("prevBtn").addEventListener("click", prevBtn, false);
+document.getElementById("nextBtn").addEventListener("click", nextBtn, false);
+
+// Initial rendering of the data table
+dataTable();
